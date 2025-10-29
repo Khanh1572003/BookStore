@@ -73,7 +73,7 @@ fun HomePage(modifier: Modifier = Modifier){
             )
         ){
             composable("home") {
-                AccountPage()
+                LoginScreen()
             }
             composable("account") {
 

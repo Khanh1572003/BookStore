@@ -1,19 +1,15 @@
 @file:OptIn(ExperimentalMaterial3Api::class)
 
-package com.example.bookstoredemo.View
+package com.example.bookstoredemo.View.HomePage_Package
 
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.fitInside
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountBox
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.Done
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.ShoppingCart
@@ -27,11 +23,11 @@ import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
@@ -41,11 +37,16 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.example.bookstoredemo.View.AccountPage_Package.LoginScreen
+import com.example.bookstoredemo.View.CartPage_Package.CartScreen
+import com.example.bookstoredemo.View.ProductPage_Package.SuggestPage
+import com.example.bookstoredemo.ui.theme.Red
+import kotlin.collections.get
 
 
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
-fun HomePage(modifier: Modifier = Modifier){
+ fun HomePage(modifier: Modifier = Modifier){
     val navController = rememberNavController()
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
@@ -59,7 +60,7 @@ fun HomePage(modifier: Modifier = Modifier){
     Scaffold(modifier = Modifier.fillMaxSize(),
         topBar = {
             AppTopBar(title = titleMap[currentRoute]?:"BookStore",
-                canNavigateBack = false)
+                canNavigateBack = true)
         },
         bottomBar = {
             BottomAppBar(navController = navController,
@@ -73,26 +74,25 @@ fun HomePage(modifier: Modifier = Modifier){
             )
         ){
             composable("home") {
-                LoginScreen()
+                HomePageDetail()
             }
             composable("account") {
-
+                LoginScreen()
             }
             composable("suggest") {
-
+                SuggestPage()
             }
             composable("notification") {
-
             }
             composable("cart") {
-
+                CartScreen()
             }
         }
 
     }
 }
 @Composable
-fun BottomAppBar(
+private fun BottomAppBar(
     navController: NavHostController,
     currentRoute:String?
 )
@@ -128,35 +128,37 @@ fun BottomAppBar(
     }
 
 @Composable
-fun AppTopBar(title: String,
-              canNavigateBack: Boolean= false,
+private fun AppTopBar(title: String,
+              canNavigateBack: Boolean,
               onNavigateBack:   ()->Unit = {}){
     CenterAlignedTopAppBar(
-        modifier = Modifier.height(56.dp),
+        modifier = Modifier.height(60.dp),
         title = {
             Text(text = title,
                 style = MaterialTheme.typography.titleLarge,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
             )
+
         },
         navigationIcon = {
             if(canNavigateBack){
                 IconButton(onClick = onNavigateBack) {
                     Icon(
                         imageVector = Icons.Filled.ArrowBack,
-                        contentDescription = "back"
+                        contentDescription = "back",
+                        tint= Color.White
                     )
                 }
             }
         },
         colors = TopAppBarDefaults.topAppBarColors(
-        containerColor = MaterialTheme.colorScheme.onPrimary,
-            titleContentColor = MaterialTheme.colorScheme.onPrimaryContainer
+        containerColor = Red,
+            titleContentColor = Color.White
         ),
     )
 }
-data class navItem(
+private data class navItem(
     val title: String,
     val image: ImageVector,
     val route: String,

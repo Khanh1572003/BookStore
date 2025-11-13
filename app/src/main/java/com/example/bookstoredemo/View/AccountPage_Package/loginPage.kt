@@ -1,7 +1,10 @@
-package com.example.bookstoredemo.View
+package com.example.bookstoredemo.View.AccountPage_Package
 
 import androidx.annotation.DrawableRes
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -12,7 +15,10 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Assistant
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.Button
@@ -26,7 +32,6 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
@@ -38,38 +43,43 @@ import com.example.bookstoredemo.ui.theme.BluePrimary
 import com.example.bookstoredemo.ui.theme.orange
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.text.withStyle
 
 @Preview(showBackground = true)
-// ============ MAIN SCREEN ============
 @Composable
 fun LoginScreen() {
+    val scrollState = rememberScrollState()
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(16.dp),
+            .padding(16.dp).verticalScroll(scrollState,true),
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         LoginForm()
         HorizontalDivider(thickness = 2.dp)
         SocialLoginButtons()
         RegisterPrompt()
+        AssisstancePromt()
     }
 }
 
 // ============ FORM COMPONENTS ============
 @Composable
-fun LoginForm() {
+private fun LoginForm() {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var showPassword by remember { mutableStateOf(false) }
 
     Column(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier.fillMaxWidth().padding(top = 10.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-        EmailField(
+        AccountField(
             value = email,
             onValueChange = { email = it }
         )
@@ -91,7 +101,7 @@ fun LoginForm() {
 }
 
 @Composable
-fun EmailField(
+private fun AccountField(
     value: String,
     onValueChange: (String) -> Unit
 ) {
@@ -111,7 +121,7 @@ fun EmailField(
 }
 
 @Composable
-fun PasswordField(
+private fun PasswordField(
     value: String,
     onValueChange: (String) -> Unit,
     showPassword: Boolean,
@@ -151,7 +161,7 @@ fun PasswordField(
 }
 
 @Composable
-fun ForgotPasswordButton() {
+private fun ForgotPasswordButton() {
     TextButton(
         onClick = { /* Handle forgot password */ },
         modifier = Modifier.fillMaxWidth(),
@@ -167,7 +177,7 @@ fun ForgotPasswordButton() {
 }
 
 @Composable
-fun LoginButton(
+private fun LoginButton(
     onClick: () -> Unit,
     enabled: Boolean = true
 ) {
@@ -184,7 +194,7 @@ fun LoginButton(
 
 // ============ SOCIAL LOGIN ============
 @Composable
-fun SocialLoginButtons() {
+private fun SocialLoginButtons() {
     Column(
         modifier = Modifier.fillMaxWidth(),
         verticalArrangement = Arrangement.spacedBy(12.dp),
@@ -207,7 +217,7 @@ fun SocialLoginButtons() {
 }
 
 @Composable
-fun SocialLoginButton(
+private fun SocialLoginButton(
     text: String,
     @DrawableRes icon: Int,
     backgroundColor: Color,
@@ -238,15 +248,50 @@ fun SocialLoginButton(
 
 // ============ REGISTER PROMPT ============
 @Composable
-fun RegisterPrompt() {
+private fun RegisterPrompt() {
     Row(
         modifier = Modifier.fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Center
     ) {
-        Text("Bạn chưa có tài khoản?")
-        TextButton(onClick = { /* Navigate to register */ }) {
-            Text("Đăng ký tài khoản", color = orange)
+        Text(
+            text = "Bạn chưa có tài khoản?",
+            color = Color.Black
+        )
+        TextButton(
+            onClick = {},
+            contentPadding = PaddingValues(horizontal = 4.dp)
+        ) {
+            Text(
+                text = "Đăng ký tài khoản",
+                color = orange
+            )
+        }
+    }
+
+}
+//=============ASSISTANCE PROMPT===============
+@Composable
+private fun AssisstancePromt( ){
+    Box(modifier = Modifier.fillMaxSize(),
+        contentAlignment = Alignment.BottomCenter
+    ){
+        Row(modifier = Modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Center,
+        )
+        {
+            Icon(Icons.Filled.Assistant, contentDescription = "Help")
+            TextButton(onClick = {}) {
+                Text("Trung tâm trợ giúp")
+            }
+            Image(painter = painterResource(R.drawable.icon_vn),
+                contentDescription = "VN",
+                modifier = Modifier.size(36.dp))
+            Spacer(modifier = Modifier.width(10.dp))
+            Image(painter = painterResource(R.drawable.icon_britian),
+                contentDescription = "EN",
+                modifier = Modifier.size(36.dp))
         }
     }
 }

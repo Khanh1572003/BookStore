@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "693152223715",
+    "firebase_url": "https://fir-app-8be54-default-rtdb.firebaseio.com",
+    "project_id": "fir-app-8be54",
+    "storage_bucket": "fir-app-8be54.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:693152223715:android:331634010fd31bacded0d6",
+        "android_client_info": {
+          "package_name": "com.example.bookstore_demo"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAui-_1WJik9yD3MsCz5FJNPLNCQOsSKCA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:693152223715:android:5c57fbba2dcf5098ded0d6",
+        "android_client_info": {
+          "package_name": "com.example.bookstoredemo"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAui-_1WJik9yD3MsCz5FJNPLNCQOsSKCA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:693152223715:android:82541124717954fcded0d6",
+        "android_client_info": {
+          "package_name": "com.example.myapplication"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAui-_1WJik9yD3MsCz5FJNPLNCQOsSKCA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
